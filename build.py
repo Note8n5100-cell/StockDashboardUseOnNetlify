@@ -36,7 +36,7 @@ HTML = r"""<!DOCTYPE html>
 </style>
 </head>
 <body>
-<header><span>台股即時走勢（約每 15 秒更新）</span><span id="time">--:--:--</span></header>
+<header><span>安東尼的台股即時走勢（約每 15 秒更新）</span><span id="time">--:--:--</span></header>
 <div id="grid"></div>
 <script>
 const STOCKS = __STOCKS__;
