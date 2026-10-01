@@ -13,7 +13,7 @@ HTML = r"""<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>即時個股走勢</title>
+<title>安東尼查看即時個股走勢</title>
 <style>
   :root { --up:#ff4b3e; --down:#22c55e; --flat:#bbb; }
   * { box-sizing: border-box; }
