@@ -6,20 +6,20 @@ from pathlib import Path
 root = Path(__file__).parent
 stocks = json.loads((root / "stocks.json").read_text(encoding="utf-8"))
 for s in stocks:
-    s["symbol"] = f'{s["code"]}.{s.get("suffix", "TW")}'
+    s.setdefault("symbol", f'{s["code"]}.{s.get("suffix", "TW")}')
 
 HTML = r"""<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>安東尼查看即時個股走勢</title>
+<title>即時個股走勢</title>
 <style>
   :root { --up:#ff4b3e; --down:#22c55e; --flat:#bbb; }
   * { box-sizing: border-box; }
   body { margin:0; background:#000; color:#fff; font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif; }
   header { padding:10px 12px; display:flex; justify-content:space-between; font-size:13px; color:#999; }
-  #grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:6px; padding:0 6px 12px; }
+  #grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; padding:0 6px 12px; }
   .card { display:flex; border:1px solid #222; background:#000; min-height:112px; }
   .info { width:46%; display:flex; flex-direction:column; }
   .head { display:flex; justify-content:space-between; align-items:center; padding:6px 8px; background:#333; font-size:18px; }
@@ -32,11 +32,19 @@ HTML = r"""<!DOCTYPE html>
   .info { background:#000; } .limit.up .info { background:#6b140f; } .limit.down .info { background:#0f4a26; }
   .chart { flex:1; }
   svg { width:100%; height:100%; display:block; }
+  @media (max-width:640px) {
+    .card { flex-direction:column; min-height:0; }
+    .info { width:100%; }
+    .head { font-size:15px; padding:4px 6px; }
+    .price { font-size:24px; padding:6px 0; }
+    .chg { font-size:13px; }
+    .chart { height:72px; }
+  }
   .err { color:#f87; padding:8px; }
 </style>
 </head>
 <body>
-<header><span>安東尼的台股即時走勢（約每 15 秒更新）</span><span id="time">--:--:--</span></header>
+<header><span>台股即時走勢（每 15 秒更新）</span><span id="time">----/--/-- --:--:--</span></header>
 <div id="grid"></div>
 <script>
 const STOCKS = __STOCKS__;
@@ -98,7 +106,10 @@ async function refresh() {
     const res = await fetch("/.netlify/functions/quotes?s=" + SYMBOLS);
     const data = await res.json();
     data.forEach(q => { const s = STOCKS.find(s => s.symbol === q.symbol); q.code = s.code; render(q); });
-    document.getElementById("time").textContent = new Date().toLocaleTimeString("zh-TW", {hour12:false});
+    const now = new Date(), tz = {timeZone:"Asia/Taipei"};
+    document.getElementById("time").textContent =
+      now.toLocaleDateString("zh-TW", {...tz, year:"numeric", month:"2-digit", day:"2-digit"}) + " " +
+      now.toLocaleTimeString("zh-TW", {...tz, hour12:false});
   } catch (e) {
     document.getElementById("time").textContent = "連線失敗";
   }
