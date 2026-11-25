@@ -18,8 +18,8 @@ HTML = r"""<!DOCTYPE html>
   :root { --up:#ff4b3e; --down:#22c55e; --flat:#bbb; }
   * { box-sizing: border-box; }
   body { margin:0; background:#000; color:#fff; font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif; }
-  header { padding:10px 12px; display:flex; justify-content:space-between; font-size:13px; color:#999; }
-  #grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; padding:0 4px 10px; }
+  header { position:sticky; left:0; width:100vw; padding:10px 12px; display:flex; justify-content:space-between; font-size:13px; color:#999; }
+  #grid { display:grid; grid-template-columns:repeat(5,minmax(160px,1fr)); min-width:840px; gap:4px; padding:0 4px 10px; }
   .card { display:flex; border:1px solid #222; background:#000; min-height:86px; }
   .info { width:46%; display:flex; flex-direction:column; }
   .head { display:flex; justify-content:space-between; align-items:center; padding:3px 6px; background:#333; font-size:15px; }
@@ -37,21 +37,7 @@ HTML = r"""<!DOCTYPE html>
   @media (max-width:1500px) {
     .card { flex-direction:column; min-height:0; }
     .info { width:100%; }
-    .head { font-size:12px; padding:2px 4px; }
-    .head small { font-size:10px; }
-    .head span { overflow:hidden; white-space:nowrap; text-overflow:clip; }
-    .price { font-size:16px; padding:0; }
-    .chg { font-size:11px; padding:0 2px 2px; }
     .chart { height:54px; }
-  }
-  @media (max-width:700px) {
-    #grid { gap:3px; padding:0 3px 8px; }
-    .head { font-size:10px; padding:2px 3px; }
-    .head small { display:none; }
-    .price { font-size:13px; }
-    .chg { font-size:9px; padding:0 1px 2px; }
-    .chart { height:44px; }
-    .chart text { display:none; }
   }
   .err { color:#f87; padding:8px; }
 </style>
