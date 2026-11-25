@@ -19,28 +19,39 @@ HTML = r"""<!DOCTYPE html>
   * { box-sizing: border-box; }
   body { margin:0; background:#000; color:#fff; font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif; }
   header { padding:10px 12px; display:flex; justify-content:space-between; font-size:13px; color:#999; }
-  #grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; padding:0 4px 10px; }
+  #grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; padding:0 4px 10px; }
   .card { display:flex; border:1px solid #222; background:#000; min-height:86px; }
   .info { width:46%; display:flex; flex-direction:column; }
   .head { display:flex; justify-content:space-between; align-items:center; padding:3px 6px; background:#333; font-size:15px; }
   .head small { color:#aaa; font-size:11px; }
-  .price { flex:1; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:500; padding:1px 0; }
+  .price { flex:1; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:500; padding:1px 0; }
   .chg { display:flex; justify-content:space-around; padding:0 2px 3px; font-size:12px; }
   .chg .hot { color:#facc15 !important; font-weight:600; }
+  .chg .hot2 { color:#ff69b4 !important; font-weight:800; }
   .up .price,.up .chg { color:var(--up); } .down .price,.down .chg { color:var(--down); } .flat .price,.flat .chg { color:var(--flat); }
   .limit.up .head { background:#a3231a; } .limit.up .price,.limit.up .chg { color:#fff; }
   .limit.down .head { background:#15803d; } .limit.down .price,.limit.down .chg { color:#fff; }
   .info { background:#000; } .limit.up .info { background:#6b140f; } .limit.down .info { background:#0f4a26; }
   .chart { flex:1; }
   svg { width:100%; height:100%; display:block; }
-  @media (max-width:900px) {
+  @media (max-width:1500px) {
     .card { flex-direction:column; min-height:0; }
     .info { width:100%; }
     .head { font-size:12px; padding:2px 4px; }
     .head small { font-size:10px; }
+    .head span { overflow:hidden; white-space:nowrap; text-overflow:clip; }
     .price { font-size:16px; padding:0; }
     .chg { font-size:11px; padding:0 2px 2px; }
     .chart { height:54px; }
+  }
+  @media (max-width:700px) {
+    #grid { gap:3px; padding:0 3px 8px; }
+    .head { font-size:10px; padding:2px 3px; }
+    .head small { display:none; }
+    .price { font-size:13px; }
+    .chg { font-size:9px; padding:0 1px 2px; }
+    .chart { height:44px; }
+    .chart text { display:none; }
   }
   .err { color:#f87; padding:8px; }
 </style>
@@ -101,6 +112,7 @@ function render(q) {
   sp[0].textContent = `${arrow} ${Math.abs(diff).toFixed(2)}`;
   sp[1].textContent = `${Math.abs(pct).toFixed(2)}%`;
   sp[1].classList.toggle("hot", Math.abs(pct) > 3);
+  sp[1].classList.toggle("hot2", Math.abs(pct) > 6);
   el.querySelector(".chart").innerHTML = sparkline(q);
 }
 
