@@ -100,7 +100,7 @@ function render(q) {
   const sp = el.querySelectorAll(".chg span");
   sp[0].textContent = `${arrow} ${Math.abs(diff).toFixed(2)}`;
   sp[1].textContent = `${Math.abs(pct).toFixed(2)}%`;
-  sp[1].classList.toggle("hot", pct > 3);
+  sp[1].classList.toggle("hot", Math.abs(pct) > 3);
   el.querySelector(".chart").innerHTML = sparkline(q);
 }
 
