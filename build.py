@@ -43,7 +43,7 @@ HTML = r"""<!DOCTYPE html>
 </style>
 </head>
 <body>
-<header><span>台股即時走勢（每 15 秒更新）</span><span id="time">----/--/-- --:--:--</span></header>
+<header><span>全球指數與台股即時走勢（每 15 秒更新）</span><span id="time">----/--/-- --:--:--</span></header>
 <div id="grid"></div>
 <script>
 const STOCKS = __STOCKS__;
@@ -69,10 +69,11 @@ function sparkline(q) {
   const x = t => L + (t - start) / (end - start) * (W - L - R);
   const y = v => T + (1 - (v - (prev - dev)) / (2 * dev)) * (H - T - B);
   let g = "";
-  for (let h = 9; h <= 13; h++) {
-    const gx = x(start + (h - 9) * 3600);
+  const off = q.off ?? 28800;
+  for (let k = Math.ceil((start + off) / 3600); k * 3600 - off <= end; k++) {
+    const gx = x(k * 3600 - off);
     g += `<line x1="${gx}" y1="${T}" x2="${gx}" y2="${H - B}" stroke="#555" stroke-width="1"/>
-          <text x="${gx}" y="${H - 3}" fill="#aaa" font-size="10" text-anchor="middle">${String(h).padStart(2,"0")}</text>`;
+          <text x="${gx}" y="${H - 3}" fill="#aaa" font-size="10" text-anchor="middle">${String(k % 24).padStart(2,"0")}</text>`;
   }
   const color = q.price > prev ? "#ff4b3e" : q.price < prev ? "#22c55e" : "#bbb";
   const path = pts.map((p, i) => (i ? "L" : "M") + x(p[0]).toFixed(1) + " " + y(p[1]).toFixed(1)).join(" ");
