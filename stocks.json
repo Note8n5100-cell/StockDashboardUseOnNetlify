@@ -1,5 +1,40 @@
 [
  {
+  "code": "DJI",
+  "name": "道瓊工業",
+  "symbol": "^DJI"
+ },
+ {
+  "code": "SOX",
+  "name": "費城半導體",
+  "symbol": "^SOX"
+ },
+ {
+  "code": "N225",
+  "name": "日經225",
+  "symbol": "^N225"
+ },
+ {
+  "code": "KS11",
+  "name": "韓國綜合",
+  "symbol": "^KS11"
+ },
+ {
+  "code": "000001",
+  "name": "上海綜合",
+  "symbol": "000001.SS"
+ },
+ {
+  "code": "399106",
+  "name": "深圳綜合",
+  "symbol": "399106.SZ"
+ },
+ {
+  "code": "HSI",
+  "name": "香港恆生",
+  "symbol": "^HSI"
+ },
+ {
   "code": "POW00",
   "name": "加權指數",
   "symbol": "^TWII"
