@@ -20,6 +20,11 @@
   "symbol": "^KS11"
  },
  {
+  "code": "POW00",
+  "name": "加權指數",
+  "symbol": "^TWII"
+ },
+ {
   "code": "000001",
   "name": "上海綜合",
   "symbol": "000001.SS"
@@ -33,11 +38,6 @@
   "code": "HSI",
   "name": "香港恆生",
   "symbol": "^HSI"
- },
- {
-  "code": "POW00",
-  "name": "加權指數",
-  "symbol": "^TWII"
  },
  {
   "code": "3481",
